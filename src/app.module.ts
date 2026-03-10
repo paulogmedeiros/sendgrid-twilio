@@ -8,6 +8,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+
 @Module({
   imports: [EmailModule, SmsModule, ConfigModule.forRoot({ 
     isGlobal: true,  cache: true,
@@ -35,7 +36,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     logging: true
 
   })
-  }) 
+  }), 
 ], 
 
   controllers: [AppController],
