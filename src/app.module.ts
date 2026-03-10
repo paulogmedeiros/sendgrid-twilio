@@ -20,7 +20,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         }  
     ],
   }), 
-  TypeOrmModule.forRootAsync({ 
+  TypeOrmModule.forRootAsync({  // cofiguraçõa do TypeORM connectando com o .env
     inject: [ConfigService],
     useFactory: (config: ConfigService) => ({
         type: 'mysql',
@@ -35,8 +35,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     logging: true
 
   })
-  })
-],
+  }) 
+], 
 
   controllers: [AppController],
   providers: [
