@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { EmailModule } from './email/email.module';
@@ -7,6 +7,9 @@ import { ConfigModule, ConfigService} from '@nestjs/config';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { LoggerMiddleware } from './logger/logger.middleware';
+import { CatsModule } from './cats/cats.module';
+
 
 
 @Module({
@@ -36,7 +39,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     logging: true
 
   })
-  }), 
+  }), CatsModule, 
 ], 
 
   controllers: [AppController],
@@ -49,4 +52,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   ]
 })
 
-export class AppModule {}
+// adicionar middleware sempre fora de @Module
+
+// =============== Middleware de logger  ================
+
+export class AppModule implements NestModule { 
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('*')    
+  }
+} 
+
+
+
+
+//export class AppModule {}

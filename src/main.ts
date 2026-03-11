@@ -7,6 +7,7 @@ import {
 } from '@nestjs/swagger';                       
 import { AppModule } from './app.module';              
 import { ValidationPipe } from '@nestjs/common';  
+import { Logger } from '@nestjs/common';
 
 
 async function bootstrap() {
@@ -45,7 +46,14 @@ async function bootstrap() {
 
   SwaggerModule.setup('api', app, documentFactory, customOptions); // ativação da configuração SwaggerCustomOptions do swagger
 
-  await app.listen(process.env.PORT ?? 3000);
+  // await app.listen(process.env.PORT ?? 3000);
+
+
+ const logger = new Logger('dadadada'); 
+  const PORT = process.env.PORT ?? 3000
+  await app.listen(PORT);
+  logger.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
+
 }
 
 bootstrap();
