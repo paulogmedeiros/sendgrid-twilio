@@ -13,9 +13,14 @@ import { Logger } from '@nestjs/common';
 async function bootstrap() {
   
   
-  const app = await NestFactory.create(AppModule, {          // Configurações do logger - Global - metodos permitidos
-    logger: ['log','error','warn','debug','verbose'], 
+  const app = await NestFactory.create(AppModule, {          
+    logger: ['log','error','warn','debug','verbose'], // Configurações do logger - Global - metodos permitidos
   });
+
+
+
+//========================= Swagger config ===============================
+
 
   const config = new DocumentBuilder()     // descrição do swagger 
     .setTitle('API teste sendgrid-twilio')
@@ -47,6 +52,24 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, documentFactory, customOptions); // ativação da configuração SwaggerCustomOptions do swagger
  
   // await app.listen(process.env.PORT ?? 3000);
+
+  
+//================== CORS ================================
+  
+app.enableCors({
+  origin: '',
+  methods: ['GET','POST','PUT','PATCH','DELETE'],
+  allowedHeaders: ['Content-Type','Authorization'],
+  credentials: true
+});
+
+
+
+
+// =================== Logger principais ==============================
+
+
+
 
  const logger = new Logger('Server'); 
  const swaggerlogger = new Logger('Swagger')
