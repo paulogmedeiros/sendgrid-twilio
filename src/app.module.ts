@@ -1,19 +1,20 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { EmailModule } from './email/email.module';
+
 import { SmsModule } from './sms/sms.module';
 import { ConfigModule, ConfigService} from '@nestjs/config';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LoggerMiddleware } from './logger/logger.middleware';
-import { CatsModule } from './cats/cats.module';
+
+import { NotificacaoModule } from './notificacao/notificacao.module';
 
 
 
 @Module({
-  imports: [EmailModule, SmsModule, ConfigModule.forRoot({ 
+  imports: [ SmsModule, ConfigModule.forRoot({ 
     isGlobal: true,  cache: true,
   }), 
   ThrottlerModule.forRoot({    
@@ -39,7 +40,7 @@ import { CatsModule } from './cats/cats.module';
     logging: true
 
   })
-  }), CatsModule, 
+  }), NotificacaoModule, 
 ], 
 
   controllers: [AppController],

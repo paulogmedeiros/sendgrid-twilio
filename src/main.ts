@@ -57,7 +57,7 @@ async function bootstrap() {
 //================== CORS ================================
   
 app.enableCors({
-  origin: '',
+  origin: '', // rota do front end 
   methods: ['GET','POST','PUT','PATCH','DELETE'],
   allowedHeaders: ['Content-Type','Authorization'],
   credentials: true
